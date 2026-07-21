@@ -108,6 +108,19 @@
   .stamp { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); }
   .attribution { font-size:10px; opacity:0.7; }
 
+  .iconpick { display:flex; align-items:center; gap:10px; }
+  .iconpick .k {
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted);
+  }
+  .iconpick .ic {
+    width:34px; height:34px; padding:0; border:1px solid transparent;
+    border-radius:9px; background:none;
+  }
+  .iconpick .ic img { display:block; width:100%; height:100%; border-radius:8px; opacity:0.5; }
+  .iconpick .ic.active { border-color:var(--accent); }
+  .iconpick .ic.active img { opacity:1; }
+
   .state { text-align:center; color:var(--muted); font-size:14px; line-height:1.6; padding:0 10px; }
   .hidden { display:none; }
   @media (prefers-reduced-motion: reduce) {
@@ -154,6 +167,14 @@
 
   <footer>
     <button id="refresh" type="button">Vernieuwen</button>
+    <div class="iconpick" id="iconPick">
+      <span class="k">Icoon</span>
+      <button class="ic" type="button" data-icon="a" aria-label="Icoon A: meter"><img src="icons/icon-a.png" alt=""></button>
+      <button class="ic" type="button" data-icon="b" aria-label="Icoon B: minimaal"><img src="icons/icon-b.png" alt=""></button>
+      <button class="ic" type="button" data-icon="c" aria-label="Icoon C: schaal"><img src="icons/icon-c.png" alt=""></button>
+      <button class="ic" type="button" data-icon="d" aria-label="Icoon D: gevuld"><img src="icons/icon-d.png" alt=""></button>
+    </div>
+    <div class="stamp hidden" id="iconHint">Zet de app opnieuw op je beginscherm om het gekozen icoon te zien.</div>
     <div class="stamp" id="stamp"></div>
     <div class="stamp attribution">Grenzen indicatief · o.a. Sherwood &amp; Huber (2010), Vecellio et al. (2022)</div>
   </footer>
@@ -310,6 +331,29 @@
       else fail('Locatie bepalen mislukt. Probeer het opnieuw.');
     }, { enableHighAccuracy:false, timeout:15000, maximumAge:300000 });
   }
+
+  // Icoonkeuze: zet de apple-touch-icon- en manifest-link om vóór het (opnieuw)
+  // toevoegen aan het beginscherm; iOS leest de link op dat moment uit.
+  var ICON_KEY = 'wbt:icon';
+  function applyIcon(v){
+    document.querySelector('link[rel="apple-touch-icon"]').setAttribute('href', 'icons/icon-' + v + '.png');
+    document.querySelector('link[rel="manifest"]').setAttribute('href', 'manifest-' + v + '.webmanifest');
+    var btns = document.querySelectorAll('#iconPick .ic');
+    for (var i = 0; i < btns.length; i++){
+      btns[i].classList.toggle('active', btns[i].getAttribute('data-icon') === v);
+    }
+  }
+  var savedIcon = 'c';
+  try { savedIcon = localStorage.getItem(ICON_KEY) || 'c'; } catch(e){}
+  applyIcon(savedIcon);
+  $('iconPick').addEventListener('click', function(ev){
+    var btn = ev.target.closest('.ic');
+    if (!btn) return;
+    var v = btn.getAttribute('data-icon');
+    try { localStorage.setItem(ICON_KEY, v); } catch(e){}
+    applyIcon(v);
+    $('iconHint').classList.remove('hidden');
+  });
 
   $('refresh').addEventListener('click', load);
   showLast();

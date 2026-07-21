@@ -10,12 +10,12 @@
   "lang": "nl",
   "icons": [
     {
-      "src": "icons/icon-c-512.png",
+      "src": "icons/icon-a-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-c.png",
+      "src": "icons/icon-a.png",
       "sizes": "180x180",
       "type": "image/png"
     }

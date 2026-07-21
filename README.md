@@ -16,6 +16,8 @@ De wet-bulbtemperatuur combineert luchttemperatuur en luchtvochtigheid in één 
 
 De app opent daarna zonder Safari-balken (standalone) en vraagt bij de eerste start toestemming voor je locatie. De app werkt overigens in elke moderne browser; op Android gaat installeren via Chrome ("Toevoegen aan startscherm").
 
+Onderin de app kun je uit vier iconen kiezen (standaard: de thermometer met meetlat). Doe dat vóór het toevoegen; iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Later wisselen kan ook, zet de app daarna wel opnieuw op het beginscherm.
+
 ## Risiconiveaus
 
 | Tw | Niveau | Betekenis |
@@ -39,6 +41,7 @@ De app-logica zit in één HTML-bestand, zonder build-stap of dependencies (daar
 * [BigDataCloud](https://www.bigdatacloud.com/) vertaalt de coördinaten naar een plaatsnaam (reverse geocoding, client-side).
 * Een service worker (`sw.js`) cachet alleen de app-shell zodat de app ook offline opent; weerdata komt niet in die cache.
 * De laatste meting staat in localStorage en wordt bij het openen direct getoond, in afwachting van verse data.
+* De icoonkeuze staat ook in localStorage; de app zet de `apple-touch-icon`- en manifest-link om naar de gekozen variant (`icons/`, `manifest-a` t/m `-d`).
 * De fonts (Sora, IBM Plex Mono) worden zelf gehost.
 
 ## Privacy

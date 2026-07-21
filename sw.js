@@ -1,10 +1,14 @@
 // Service worker: app-shell offline beschikbaar, weerdata altijd vers via netwerk.
-var CACHE = 'wbt-v1';
+var CACHE = 'wbt-v2';
 var SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './apple-touch-icon.png',
+  './icons/icon-a.png',
+  './icons/icon-b.png',
+  './icons/icon-c.png',
+  './icons/icon-d.png',
   './fonts/sora-latin.woff2',
   './fonts/plexmono-400-latin.woff2',
   './fonts/plexmono-500-latin.woff2',
