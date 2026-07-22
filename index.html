@@ -135,6 +135,13 @@
   .iconpick .ic.active { border-color:var(--accent); }
   .iconpick .ic.active img { opacity:1; }
   .menu-note { margin-top:14px; font-size:12.5px; line-height:1.5; color:var(--muted); max-width:40ch; }
+  .langpick { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:16px; }
+  .langpick .lg {
+    font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:500; letter-spacing:0.08em;
+    width:auto; padding:9px 14px; background:none; border:1px solid var(--line); border-radius:9px;
+    color:var(--muted);
+  }
+  .langpick .lg.active { color:var(--accent); border-color:var(--accent); }
   .about { margin-top:16px; font-size:13px; line-height:1.6; color:var(--muted); max-width:44ch; }
   .about a { color:var(--ink); }
 
@@ -152,7 +159,7 @@
     </div>
     <div class="hdr-right">
       <div class="loc" id="loc"></div>
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu" data-i18n-aria="aria_menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
@@ -169,7 +176,7 @@
         </svg>
         <div class="readout">
           <div class="tw"><span id="twVal">–</span><span class="unit"> °C</span></div>
-          <div class="tw-label">wet bulb (Tw)</div>
+          <div class="tw-label" data-i18n="tw_label">wet bulb (Tw)</div>
         </div>
       </div>
 
@@ -177,42 +184,52 @@
       <div class="risk-note" id="riskNote"></div>
 
       <div class="grid">
-        <div class="cell"><div class="k">Temperatuur</div><div class="v" id="t">–</div></div>
-        <div class="cell"><div class="k">Luchtvochtigheid</div><div class="v" id="rh">–</div></div>
-        <div class="cell"><div class="k">Gevoelstemperatuur</div><div class="v" id="app">–</div></div>
-        <div class="cell"><div class="k">Dauwpunt</div><div class="v" id="dp">–</div></div>
+        <div class="cell"><div class="k" data-i18n="grid_t">Temperatuur</div><div class="v" id="t">–</div></div>
+        <div class="cell"><div class="k" data-i18n="grid_rh">Luchtvochtigheid</div><div class="v" id="rh">–</div></div>
+        <div class="cell"><div class="k" data-i18n="grid_app">Gevoelstemperatuur</div><div class="v" id="app">–</div></div>
+        <div class="cell"><div class="k" data-i18n="grid_dp">Dauwpunt</div><div class="v" id="dp">–</div></div>
       </div>
     </div>
   </main>
 
   <footer>
-    <button id="refresh" type="button">Vernieuwen</button>
+    <button id="refresh" type="button" data-i18n="refresh">Vernieuwen</button>
     <div class="stamp" id="stamp"></div>
   </footer>
 
   <div class="menu hidden" id="menu">
     <div class="menu-head">
-      <div class="eyebrow">Menu</div>
-      <button class="menu-btn" id="menuClose" type="button" aria-label="Sluit menu">
+      <div class="eyebrow" data-i18n="menu_title">Menu</div>
+      <button class="menu-btn" id="menuClose" type="button" aria-label="Sluit menu" data-i18n-aria="aria_close">
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
     </div>
     <div>
-      <div class="sect-k">App-icoon</div>
-      <div class="iconpick" id="iconPick">
-        <button class="ic" type="button" data-icon="a" aria-label="Icoon A: meter"><img src="icons/icon-a.png" alt=""></button>
-        <button class="ic" type="button" data-icon="b" aria-label="Icoon B: minimaal"><img src="icons/icon-b.png" alt=""></button>
-        <button class="ic" type="button" data-icon="c" aria-label="Icoon C: schaal"><img src="icons/icon-c.png" alt=""></button>
-        <button class="ic" type="button" data-icon="d" aria-label="Icoon D: gevuld"><img src="icons/icon-d.png" alt=""></button>
+      <div class="sect-k" data-i18n="menu_lang">Taal</div>
+      <div class="langpick" id="langPick">
+        <button class="lg" type="button" data-lang="nl">NL</button>
+        <button class="lg" type="button" data-lang="en">EN</button>
+        <button class="lg" type="button" data-lang="de">DE</button>
+        <button class="lg" type="button" data-lang="fr">FR</button>
+        <button class="lg" type="button" data-lang="es">ES</button>
+        <button class="lg" type="button" data-lang="it">IT</button>
       </div>
-      <div class="menu-note">iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Kies dus eerst, en zet de app daarna (opnieuw) op je beginscherm.</div>
     </div>
     <div>
-      <div class="sect-k">Over</div>
+      <div class="sect-k" data-i18n="menu_icon">App-icoon</div>
+      <div class="iconpick" id="iconPick">
+        <button class="ic" type="button" data-icon="a" aria-label="Icoon A: meter" data-i18n-aria="aria_icon_a"><img src="icons/icon-a.png" alt=""></button>
+        <button class="ic" type="button" data-icon="b" aria-label="Icoon B: minimaal" data-i18n-aria="aria_icon_b"><img src="icons/icon-b.png" alt=""></button>
+        <button class="ic" type="button" data-icon="c" aria-label="Icoon C: schaal" data-i18n-aria="aria_icon_c"><img src="icons/icon-c.png" alt=""></button>
+        <button class="ic" type="button" data-icon="d" aria-label="Icoon D: gevuld" data-i18n-aria="aria_icon_d"><img src="icons/icon-d.png" alt=""></button>
+      </div>
+      <div class="menu-note" data-i18n="menu_icon_note">iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Kies dus eerst, en zet de app daarna (opnieuw) op je beginscherm.</div>
+    </div>
+    <div>
+      <div class="sect-k" data-i18n="menu_about">Over</div>
       <div class="about">
-        Toont de actuele wet bulb temperatuur en het hitterisico op je locatie.
-        Weerdata van Open-Meteo; risicogrenzen indicatief, o.a. naar Sherwood &amp; Huber (2010) en Vecellio et al. (2022).
-        <a href="https://github.com/kramerica-inc-dev/wet-bulb-temperature" target="_blank" rel="noopener">Broncode en uitleg op GitHub</a>.
+        <span data-i18n="menu_about_text">Toont de actuele wet bulb temperatuur en het hitterisico op je locatie. Weerdata van Open-Meteo; risicogrenzen indicatief, o.a. naar Sherwood &amp; Huber (2010) en Vecellio et al. (2022).</span>
+        <a href="https://github.com/kramerica-inc-dev/wet-bulb-temperature" target="_blank" rel="noopener" data-i18n="menu_github">Broncode en uitleg op GitHub</a>.
       </div>
     </div>
   </div>
@@ -223,21 +240,314 @@
   var ARC_LEN = 207.3; // 3/4 cirkel
   var TW_MIN = 0, TW_MAX = 40;
   var CACHE_KEY = 'wbt:last';
-  var lastStamp = '';
+  var LANG_KEY = 'wbt:lang';
+  var lastStamp = '', lastData = null, lastPlace = '', stateKey = null;
 
-  // Risiconiveaus op basis van wet bulb temperature
+  // Risiconiveaus op basis van wet bulb temperature; teksten per taal in STR
   var LEVELS = [
-    { max: 23, label: 'Veilig', color: '#4FD1B5', dim: 'rgba(79,209,181,0.14)',
-      note: 'Het lichaam kan warmte goed kwijt via zweten.' },
-    { max: 28, label: 'Oppassen', color: '#E8C158', dim: 'rgba(232,193,88,0.13)',
-      note: 'Zware inspanning wordt belastend. Drink voldoende en zoek regelmatig schaduw.' },
-    { max: 31, label: 'Gevaarlijk', color: '#F08A4B', dim: 'rgba(240,138,75,0.14)',
-      note: 'Risico op oververhitting bij inspanning, ook voor gezonde mensen. Beperk activiteit buiten.' },
-    { max: 35, label: 'Zeer gevaarlijk', color: '#E85454', dim: 'rgba(232,84,84,0.15)',
-      note: 'Ook in rust kan het lichaam warmte nauwelijks kwijt. Blijf in een gekoelde omgeving.' },
-    { max: Infinity, label: 'Levensbedreigend', color: '#FF3B3B', dim: 'rgba(255,59,59,0.18)',
-      note: 'Boven ~35 °C wet bulb is overleven zonder koeling niet mogelijk. Zoek direct verkoeling.' }
+    { max: 23, color: '#4FD1B5', dim: 'rgba(79,209,181,0.14)' },
+    { max: 28, color: '#E8C158', dim: 'rgba(232,193,88,0.13)' },
+    { max: 31, color: '#F08A4B', dim: 'rgba(240,138,75,0.14)' },
+    { max: 35, color: '#E85454', dim: 'rgba(232,84,84,0.15)' },
+    { max: Infinity, color: '#FF3B3B', dim: 'rgba(255,59,59,0.18)' }
   ];
+
+  var LOCALES = { nl:'nl-NL', en:'en-GB', de:'de-DE', fr:'fr-FR', es:'es-ES', it:'it-IT' };
+  var STR = {
+    nl: {
+      state_locating: 'Locatie bepalen…',
+      state_fetching: 'Weerdata ophalen…',
+      err_geo_unsupported: 'Geolocatie wordt niet ondersteund door deze browser.',
+      err_geo_denied: 'Geen toegang tot locatie. Sta locatietoegang toe via Instellingen > Privacy > Locatievoorzieningen > Safari.',
+      err_geo_failed: 'Locatie bepalen mislukt. Probeer het opnieuw.',
+      err_fetch: 'Weerdata ophalen mislukt. Controleer je internetverbinding en probeer opnieuw.',
+      tw_label: 'wet bulb (Tw)',
+      grid_t: 'Temperatuur', grid_rh: 'Luchtvochtigheid', grid_app: 'Gevoelstemperatuur', grid_dp: 'Dauwpunt',
+      refresh: 'Vernieuwen',
+      stamp_measurement: 'Meting', stamp_refreshing: 'Vernieuwen…', stamp_not_updated: 'niet bijgewerkt',
+      menu_title: 'Menu', menu_icon: 'App-icoon',
+      menu_icon_note: 'iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Kies dus eerst, en zet de app daarna (opnieuw) op je beginscherm.',
+      menu_lang: 'Taal', menu_about: 'Over',
+      menu_about_text: 'Toont de actuele wet bulb temperatuur en het hitterisico op je locatie. Weerdata van Open-Meteo; risicogrenzen indicatief, o.a. naar Sherwood & Huber (2010) en Vecellio et al. (2022).',
+      menu_github: 'Broncode en uitleg op GitHub',
+      aria_menu: 'Menu', aria_close: 'Sluit menu',
+      aria_icon_a: 'Icoon A: meter', aria_icon_b: 'Icoon B: minimaal', aria_icon_c: 'Icoon C: schaal', aria_icon_d: 'Icoon D: gevuld',
+      levels: [
+        { label: 'Veilig', note: 'Het lichaam kan warmte goed kwijt via zweten.' },
+        { label: 'Oppassen', note: 'Zware inspanning wordt belastend. Drink voldoende en zoek regelmatig schaduw.' },
+        { label: 'Gevaarlijk', note: 'Risico op oververhitting bij inspanning, ook voor gezonde mensen. Beperk activiteit buiten.' },
+        { label: 'Zeer gevaarlijk', note: 'Ook in rust kan het lichaam warmte nauwelijks kwijt. Blijf in een gekoelde omgeving.' },
+        { label: 'Levensbedreigend', note: 'Boven ~35 °C wet bulb is overleven zonder koeling niet mogelijk. Zoek direct verkoeling.' }
+      ]
+    }
+    ,en: {
+      "state_locating": "Getting location…",
+      "state_fetching": "Fetching weather data…",
+      "err_geo_unsupported": "Geolocation is not supported by this browser.",
+      "err_geo_denied": "No location access. Allow it in Settings > Privacy & Security > Location Services > Safari.",
+      "err_geo_failed": "Could not get your location. Try again.",
+      "err_fetch": "Could not fetch weather data. Check your internet connection and try again.",
+      "tw_label": "wet bulb (Tw)",
+      "grid_t": "Temperature",
+      "grid_rh": "Humidity",
+      "grid_app": "Feels like",
+      "grid_dp": "Dew point",
+      "refresh": "Refresh",
+      "stamp_measurement": "Reading",
+      "stamp_refreshing": "Refreshing…",
+      "stamp_not_updated": "not updated",
+      "menu_title": "Menu",
+      "menu_icon": "App icon",
+      "menu_icon_note": "iOS captures the icon at the moment you add the app to your Home Screen. Choose an icon first, then add the app to your Home Screen (again).",
+      "menu_lang": "Language",
+      "menu_about": "About",
+      "menu_about_text": "Shows the current wet-bulb temperature and heat risk at your location. Weather data from Open-Meteo; risk thresholds are indicative, based in part on Sherwood & Huber (2010) and Vecellio et al. (2022).",
+      "menu_github": "Source code and explanation on GitHub",
+      "aria_menu": "Menu",
+      "aria_close": "Close menu",
+      "aria_icon_a": "Icon A: gauge",
+      "aria_icon_b": "Icon B: minimal",
+      "aria_icon_c": "Icon C: scale",
+      "aria_icon_d": "Icon D: filled",
+      "levels": [
+            {
+                  "label": "Safe",
+                  "note": "The body can shed heat effectively through sweating."
+            },
+            {
+                  "label": "Caution",
+                  "note": "Heavy exertion becomes taxing. Drink plenty of fluids and seek shade regularly."
+            },
+            {
+                  "label": "Dangerous",
+                  "note": "Risk of overheating during exertion, even for healthy people. Limit outdoor activity."
+            },
+            {
+                  "label": "Very dangerous",
+                  "note": "Even at rest, the body can barely shed heat. Stay in a cooled environment."
+            },
+            {
+                  "label": "Life-threatening",
+                  "note": "Above ~35 °C wet bulb, survival without cooling is not possible. Seek cooling immediately."
+            }
+      ]
+    }
+    ,de: {
+      "state_locating": "Standort wird ermittelt…",
+      "state_fetching": "Wetterdaten werden geladen…",
+      "err_geo_unsupported": "Geolokalisierung wird von diesem Browser nicht unterstützt.",
+      "err_geo_denied": "Kein Zugriff auf den Standort. Erlaube den Standortzugriff unter Einstellungen > Datenschutz & Sicherheit > Ortungsdienste > Safari-Websites.",
+      "err_geo_failed": "Standortbestimmung fehlgeschlagen. Versuche es erneut.",
+      "err_fetch": "Wetterdaten konnten nicht geladen werden. Prüfe deine Internetverbindung und versuche es erneut.",
+      "tw_label": "wet bulb (Tw)",
+      "grid_t": "Temperatur",
+      "grid_rh": "Luftfeuchtigkeit",
+      "grid_app": "Gefühlte Temperatur",
+      "grid_dp": "Taupunkt",
+      "refresh": "Aktualisieren",
+      "stamp_measurement": "Messung",
+      "stamp_refreshing": "Wird aktualisiert…",
+      "stamp_not_updated": "nicht aktualisiert",
+      "menu_title": "Menü",
+      "menu_icon": "App-Symbol",
+      "menu_icon_note": "iOS liest das Symbol in dem Moment aus, in dem du die App zum Home-Bildschirm hinzufügst. Wähle also zuerst ein Symbol und füge die App danach (erneut) zum Home-Bildschirm hinzu.",
+      "menu_lang": "Sprache",
+      "menu_about": "Info",
+      "menu_about_text": "Zeigt die aktuelle Feuchtkugeltemperatur und das Hitzerisiko an deinem Standort. Wetterdaten von Open-Meteo; Risikogrenzen sind Richtwerte, u. a. nach Sherwood & Huber (2010) und Vecellio et al. (2022).",
+      "menu_github": "Quellcode und Erklärung auf GitHub",
+      "aria_menu": "Menü",
+      "aria_close": "Menü schließen",
+      "aria_icon_a": "Symbol A: Messgerät",
+      "aria_icon_b": "Symbol B: minimal",
+      "aria_icon_c": "Symbol C: Skala",
+      "aria_icon_d": "Symbol D: gefüllt",
+      "levels": [
+            {
+                  "label": "Sicher",
+                  "note": "Der Körper kann Wärme durch Schwitzen gut abgeben."
+            },
+            {
+                  "label": "Vorsicht",
+                  "note": "Schwere Anstrengung wird zur Belastung. Trinke ausreichend und suche regelmäßig Schatten auf."
+            },
+            {
+                  "label": "Gefährlich",
+                  "note": "Risiko einer Überhitzung bei Anstrengung, auch für gesunde Menschen. Schränke Aktivitäten im Freien ein."
+            },
+            {
+                  "label": "Sehr gefährlich",
+                  "note": "Auch in Ruhe kann der Körper Wärme kaum abgeben. Bleibe in gekühlter Umgebung."
+            },
+            {
+                  "label": "Lebensbedrohlich",
+                  "note": "Über ~35 °C Feuchtkugeltemperatur ist ein Überleben ohne Kühlung nicht möglich. Suche sofort Abkühlung."
+            }
+      ]
+    }
+    ,fr: {
+      "state_locating": "Localisation…",
+      "state_fetching": "Chargement des données météo…",
+      "err_geo_unsupported": "La géolocalisation n'est pas prise en charge par ce navigateur.",
+      "err_geo_denied": "Accès à la position refusé. Autorisez la localisation dans Réglages > Confidentialité et sécurité > Service de localisation > Safari.",
+      "err_geo_failed": "Échec de la localisation. Réessayez.",
+      "err_fetch": "Échec du chargement des données météo. Vérifiez votre connexion Internet et réessayez.",
+      "tw_label": "température humide (Tw)",
+      "grid_t": "Température",
+      "grid_rh": "Humidité",
+      "grid_app": "Température ressentie",
+      "grid_dp": "Point de rosée",
+      "refresh": "Actualiser",
+      "stamp_measurement": "Relevé",
+      "stamp_refreshing": "Actualisation…",
+      "stamp_not_updated": "non actualisé",
+      "menu_title": "Menu",
+      "menu_icon": "Icône de l'app",
+      "menu_icon_note": "iOS lit l'icône au moment où vous placez l'app sur l'écran d'accueil. Choisissez donc d'abord, puis ajoutez (à nouveau) l'app à votre écran d'accueil.",
+      "menu_lang": "Langue",
+      "menu_about": "À propos",
+      "menu_about_text": "Affiche la température humide actuelle et le risque lié à la chaleur à votre position. Données météo d'Open-Meteo ; seuils de risque indicatifs, d'après notamment Sherwood & Huber (2010) et Vecellio et al. (2022).",
+      "menu_github": "Code source et explications sur GitHub",
+      "aria_menu": "Menu",
+      "aria_close": "Fermer le menu",
+      "aria_icon_a": "Icône A : jauge",
+      "aria_icon_b": "Icône B : minimaliste",
+      "aria_icon_c": "Icône C : échelle",
+      "aria_icon_d": "Icône D : remplie",
+      "levels": [
+            {
+                  "label": "Sans danger",
+                  "note": "Le corps évacue bien la chaleur grâce à la transpiration."
+            },
+            {
+                  "label": "Prudence",
+                  "note": "L'effort intense devient éprouvant. Buvez suffisamment et mettez-vous régulièrement à l'ombre."
+            },
+            {
+                  "label": "Dangereux",
+                  "note": "Risque de surchauffe à l'effort, même pour les personnes en bonne santé. Limitez les activités en extérieur."
+            },
+            {
+                  "label": "Très dangereux",
+                  "note": "Même au repos, le corps évacue à peine la chaleur. Restez dans un lieu climatisé."
+            },
+            {
+                  "label": "Danger de mort",
+                  "note": "Au-delà de ~35 °C de température humide, survivre sans refroidissement est impossible. Mettez-vous immédiatement au frais."
+            }
+      ]
+    }
+    ,es: {
+      "state_locating": "Obteniendo ubicación…",
+      "state_fetching": "Obteniendo datos meteorológicos…",
+      "err_geo_unsupported": "Este navegador no admite la geolocalización.",
+      "err_geo_denied": "Sin acceso a la ubicación. Permite el acceso en Ajustes > Privacidad y seguridad > Localización > Safari.",
+      "err_geo_failed": "No se pudo determinar la ubicación. Inténtalo de nuevo.",
+      "err_fetch": "No se pudieron obtener los datos meteorológicos. Comprueba tu conexión a internet e inténtalo de nuevo.",
+      "tw_label": "bulbo húmedo (Tw)",
+      "grid_t": "Temperatura",
+      "grid_rh": "Humedad",
+      "grid_app": "Sensación térmica",
+      "grid_dp": "Punto de rocío",
+      "refresh": "Actualizar",
+      "stamp_measurement": "Medición",
+      "stamp_refreshing": "Actualizando…",
+      "stamp_not_updated": "sin actualizar",
+      "menu_title": "Menú",
+      "menu_icon": "Icono de la app",
+      "menu_icon_note": "iOS lee el icono en el momento en que añades la app a la pantalla de inicio. Elige primero y luego añade la app (de nuevo) a tu pantalla de inicio.",
+      "menu_lang": "Idioma",
+      "menu_about": "Acerca de",
+      "menu_about_text": "Muestra la temperatura de bulbo húmedo actual y el riesgo por calor en tu ubicación. Datos meteorológicos de Open-Meteo; umbrales de riesgo orientativos, según Sherwood & Huber (2010) y Vecellio et al. (2022), entre otros.",
+      "menu_github": "Código fuente y explicación en GitHub",
+      "aria_menu": "Menú",
+      "aria_close": "Cerrar menú",
+      "aria_icon_a": "Icono A: medidor",
+      "aria_icon_b": "Icono B: minimalista",
+      "aria_icon_c": "Icono C: escala",
+      "aria_icon_d": "Icono D: relleno",
+      "levels": [
+            {
+                  "label": "Seguro",
+                  "note": "El cuerpo disipa bien el calor mediante la sudoración."
+            },
+            {
+                  "label": "Precaución",
+                  "note": "El esfuerzo intenso supone una carga para el cuerpo. Bebe suficiente agua y busca la sombra con frecuencia."
+            },
+            {
+                  "label": "Peligroso",
+                  "note": "Riesgo de sobrecalentamiento del cuerpo durante el esfuerzo, incluso en personas sanas. Limita la actividad al aire libre."
+            },
+            {
+                  "label": "Muy peligroso",
+                  "note": "Incluso en reposo, el cuerpo apenas puede disipar el calor. Permanece en un lugar climatizado."
+            },
+            {
+                  "label": "Potencialmente mortal",
+                  "note": "Por encima de ~35 °C de bulbo húmedo no es posible sobrevivir sin refrigeración. Refréscate de inmediato."
+            }
+      ]
+    }
+    ,it: {
+      "state_locating": "Rilevamento posizione…",
+      "state_fetching": "Recupero dati meteo…",
+      "err_geo_unsupported": "La geolocalizzazione non è supportata da questo browser.",
+      "err_geo_denied": "Nessun accesso alla posizione. Consenti l'accesso in Impostazioni > Privacy e sicurezza > Localizzazione > Safari.",
+      "err_geo_failed": "Impossibile rilevare la posizione. Riprova.",
+      "err_fetch": "Impossibile recuperare i dati meteo. Controlla la connessione a internet e riprova.",
+      "tw_label": "bulbo umido (Tw)",
+      "grid_t": "Temperatura",
+      "grid_rh": "Umidità",
+      "grid_app": "Temperatura percepita",
+      "grid_dp": "Punto di rugiada",
+      "refresh": "Aggiorna",
+      "stamp_measurement": "Rilevazione",
+      "stamp_refreshing": "Aggiornamento…",
+      "stamp_not_updated": "non aggiornata",
+      "menu_title": "Menu",
+      "menu_icon": "Icona dell'app",
+      "menu_icon_note": "iOS acquisisce l'icona nel momento in cui aggiungi l'app alla schermata Home. Scegli quindi prima l'icona, poi aggiungi (di nuovo) l'app alla schermata Home.",
+      "menu_lang": "Lingua",
+      "menu_about": "Info",
+      "menu_about_text": "Mostra la temperatura di bulbo umido attuale e il rischio da caldo nella tua posizione. Dati meteo di Open-Meteo; soglie di rischio indicative, basate tra l'altro su Sherwood & Huber (2010) e Vecellio et al. (2022).",
+      "menu_github": "Codice sorgente e spiegazione su GitHub",
+      "aria_menu": "Menu",
+      "aria_close": "Chiudi il menu",
+      "aria_icon_a": "Icona A: misuratore",
+      "aria_icon_b": "Icona B: minimale",
+      "aria_icon_c": "Icona C: scala",
+      "aria_icon_d": "Icona D: piena",
+      "levels": [
+            {
+                  "label": "Sicuro",
+                  "note": "Il corpo riesce a disperdere bene il calore attraverso la sudorazione."
+            },
+            {
+                  "label": "Attenzione",
+                  "note": "Gli sforzi intensi diventano gravosi. Bevi a sufficienza e cerca regolarmente l'ombra."
+            },
+            {
+                  "label": "Pericoloso",
+                  "note": "Rischio di surriscaldamento sotto sforzo, anche per persone sane. Limita le attività all'aperto."
+            },
+            {
+                  "label": "Molto pericoloso",
+                  "note": "Anche a riposo il corpo riesce a malapena a disperdere il calore. Resta in un ambiente climatizzato."
+            },
+            {
+                  "label": "Pericolo di vita",
+                  "note": "Oltre ~35 °C di bulbo umido non è possibile sopravvivere senza raffreddamento. Cerca subito refrigerio."
+            }
+      ]
+    }
+  };
+
+  var lang = (function(){
+    try { var s = localStorage.getItem(LANG_KEY); if (s && STR[s]) return s; } catch(e){}
+    var nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    return STR[nav] ? nav : 'en';
+  })();
+  function T(){ return STR[lang] || STR.nl; }
 
   // Stull (2011) benadering, fallback als API geen Tw levert
   function stull(T, RH){
@@ -247,14 +557,14 @@
       - 4.686035;
   }
 
-  function fmt(n){ return (Math.round(n * 10) / 10).toLocaleString('nl-NL', {minimumFractionDigits:1, maximumFractionDigits:1}); }
+  function fmt(n){ return (Math.round(n * 10) / 10).toLocaleString(LOCALES[lang], {minimumFractionDigits:1, maximumFractionDigits:1}); }
 
   function setLevel(tw){
-    var lvl = LEVELS.find(function(l){ return tw < l.max; });
-    document.documentElement.style.setProperty('--accent', lvl.color);
-    document.documentElement.style.setProperty('--accent-dim', lvl.dim);
-    $('riskChip').textContent = lvl.label;
-    $('riskNote').textContent = lvl.note;
+    var idx = LEVELS.findIndex(function(l){ return tw < l.max; });
+    document.documentElement.style.setProperty('--accent', LEVELS[idx].color);
+    document.documentElement.style.setProperty('--accent-dim', LEVELS[idx].dim);
+    $('riskChip').textContent = T().levels[idx].label;
+    $('riskNote').textContent = T().levels[idx].note;
   }
 
   function setGauge(tw){
@@ -264,13 +574,15 @@
 
   function stampText(iso){
     var d = new Date(iso);
-    var time = d.toLocaleTimeString('nl-NL', {hour:'2-digit', minute:'2-digit'});
+    var time = d.toLocaleTimeString(LOCALES[lang], {hour:'2-digit', minute:'2-digit'});
     var sameDay = d.toDateString() === new Date().toDateString();
-    var when = sameDay ? time : d.toLocaleDateString('nl-NL', {day:'numeric', month:'short'}) + ' ' + time;
-    return 'Meting ' + when + ' · Open-Meteo';
+    var when = sameDay ? time : d.toLocaleDateString(LOCALES[lang], {day:'numeric', month:'short'}) + ' ' + time;
+    return T().stamp_measurement + ' ' + when + ' · Open-Meteo';
   }
 
   function show(data, placeName){
+    lastData = data;
+    if (placeName) lastPlace = placeName;
     var c = data.current;
     var tw = c.wet_bulb_temperature_2m;
     if (tw == null || isNaN(tw)) tw = stull(c.temperature_2m, c.relative_humidity_2m);
@@ -307,33 +619,37 @@
     } catch(e){}
   }
 
-  function fail(msg){
+  function setState(key){
+    stateKey = key;
+    $('state').classList.remove('hidden');
+    $('state').textContent = T()[key];
+  }
+
+  function fail(key){
     if (!$('result').classList.contains('hidden')){
       // Er staat nog een eerdere meting; laat die staan en meld alleen dat verversen niet lukte.
-      $('stamp').textContent = lastStamp + ' · niet bijgewerkt';
+      $('stamp').textContent = lastStamp + ' · ' + T().stamp_not_updated;
       return;
     }
-    $('state').classList.remove('hidden');
-    $('state').textContent = msg;
+    setState(key);
   }
 
   function load(){
     var hasData = !$('result').classList.contains('hidden');
     if (hasData){
-      $('stamp').textContent = 'Vernieuwen…';
+      $('stamp').textContent = T().stamp_refreshing;
     } else {
-      $('state').classList.remove('hidden');
-      $('state').textContent = 'Locatie bepalen…';
+      setState('state_locating');
     }
 
     if (!navigator.geolocation){
-      fail('Geolocatie wordt niet ondersteund door deze browser.');
+      fail('err_geo_unsupported');
       return;
     }
 
     navigator.geolocation.getCurrentPosition(function(pos){
       var lat = pos.coords.latitude, lon = pos.coords.longitude;
-      if (!hasData) $('state').textContent = 'Weerdata ophalen…';
+      if (!hasData) setState('state_fetching');
 
       var url = 'https://api.open-meteo.com/v1/forecast'
         + '?latitude=' + lat + '&longitude=' + lon
@@ -346,7 +662,7 @@
       });
 
       var place = fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat +
-          '&longitude=' + lon + '&localityLanguage=nl')
+          '&longitude=' + lon + '&localityLanguage=' + lang)
         .then(function(r){ return r.json(); })
         .then(function(g){ return g.locality || g.city || g.principalSubdivision || ''; })
         .catch(function(){ return ''; });
@@ -362,11 +678,11 @@
           + '&timezone=auto';
         fetch(url2).then(function(r){ return r.json(); })
           .then(function(d){ show(d, ''); saveLast(d, ''); })
-          .catch(function(){ fail('Weerdata ophalen mislukt. Controleer je internetverbinding en probeer opnieuw.'); });
+          .catch(function(){ fail('err_fetch'); });
       });
     }, function(err){
-      if (err.code === 1) fail('Geen toegang tot locatie. Sta locatietoegang toe via Instellingen > Privacy > Locatievoorzieningen > Safari.');
-      else fail('Locatie bepalen mislukt. Probeer het opnieuw.');
+      if (err.code === 1) fail('err_geo_denied');
+      else fail('err_geo_failed');
     }, { enableHighAccuracy:false, timeout:15000, maximumAge:300000 });
   }
 
@@ -397,6 +713,34 @@
   $('menuClose').addEventListener('click', closeMenu);
   document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeMenu(); });
 
+  // Taalkeuze: statische teksten via data-i18n; dynamische onderdelen her-renderen.
+  function applyLang(v){
+    lang = v;
+    document.documentElement.lang = v;
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++){
+      els[i].textContent = T()[els[i].getAttribute('data-i18n')];
+    }
+    var aria = document.querySelectorAll('[data-i18n-aria]');
+    for (var j = 0; j < aria.length; j++){
+      aria[j].setAttribute('aria-label', T()[aria[j].getAttribute('data-i18n-aria')]);
+    }
+    var btns = document.querySelectorAll('#langPick .lg');
+    for (var k = 0; k < btns.length; k++){
+      btns[k].classList.toggle('active', btns[k].getAttribute('data-lang') === v);
+    }
+    if (lastData) show(lastData, lastPlace);
+    else if (stateKey && !$('state').classList.contains('hidden')) $('state').textContent = T()[stateKey];
+  }
+  $('langPick').addEventListener('click', function(ev){
+    var btn = ev.target.closest('.lg');
+    if (!btn) return;
+    var v = btn.getAttribute('data-lang');
+    try { localStorage.setItem(LANG_KEY, v); } catch(e){}
+    applyLang(v);
+  });
+
+  applyLang(lang);
   $('refresh').addEventListener('click', load);
   showLast();
   load();

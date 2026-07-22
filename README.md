@@ -1,6 +1,6 @@
 # Wet Bulb Temperature
 
-*Dutch-language web app showing the current wet-bulb temperature at your location, with a heat-risk level.*
+*Web app showing the current wet-bulb temperature at your location, with a heat-risk level. Interface in six languages (NL, EN, DE, FR, ES, IT).*
 
 <img src="docs/screenshot.png" alt="Screenshot van de app" width="300">
 
@@ -42,6 +42,7 @@ De app-logica zit in één HTML-bestand, zonder build-stap of dependencies (daar
 * Een service worker (`sw.js`) cachet alleen de app-shell zodat de app ook offline opent; weerdata komt niet in die cache.
 * De laatste meting staat in localStorage en wordt bij het openen direct getoond, in afwachting van verse data.
 * De icoonkeuze staat ook in localStorage; de app zet de `apple-touch-icon`- en manifest-link om naar de gekozen variant (`icons/`, `manifest-a` t/m `-d`).
+* De interface is er in zes talen (NL, EN, DE, FR, ES, IT). Standaard volgt de app de browsertaal, met Engels als fallback; kiezen kan in het menu en de keuze wordt in localStorage bewaard. Getallen en tijden volgen de gekozen taal.
 * De fonts (Sora, IBM Plex Mono) worden zelf gehost.
 
 ## Privacy
