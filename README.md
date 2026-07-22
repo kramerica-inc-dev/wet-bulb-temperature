@@ -16,7 +16,7 @@ De wet-bulbtemperatuur combineert luchttemperatuur en luchtvochtigheid in één 
 
 De app opent daarna zonder Safari-balken (standalone) en vraagt bij de eerste start toestemming voor je locatie. De app werkt overigens in elke moderne browser; op Android gaat installeren via Chrome ("Toevoegen aan startscherm").
 
-Onderin de app kun je uit vier iconen kiezen (standaard: de thermometer met meetlat). Doe dat vóór het toevoegen; iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Later wisselen kan ook, zet de app daarna wel opnieuw op het beginscherm.
+In het menu (☰ rechtsboven) kun je uit vier iconen kiezen (standaard: de thermometer met meetlat). Doe dat vóór het toevoegen; iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Later wisselen kan ook, zet de app daarna wel opnieuw op het beginscherm.
 
 ## Risiconiveaus
 

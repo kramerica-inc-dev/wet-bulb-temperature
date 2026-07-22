@@ -49,17 +49,25 @@
     min-height: 100svh;
     transition: background 0.8s ease;
   }
-  header { display:flex; justify-content:space-between; align-items:baseline; }
+  header { display:flex; justify-content:space-between; align-items:center; }
   .eyebrow {
     font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.16em;
     text-transform:uppercase; color:var(--muted);
   }
-  .loc { font-size:13px; color:var(--muted); text-align:right; max-width:55%; }
+  .hdr-right { display:flex; align-items:center; gap:14px; min-width:0; }
+  .loc { font-size:13px; color:var(--muted); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .menu-btn {
+    width:auto; padding:10px; margin:-10px; background:none; border:none; border-radius:8px;
+    color:var(--muted); display:flex; flex-direction:column; gap:5px; flex-shrink:0;
+  }
+  .menu-btn span { display:block; width:18px; height:1.5px; background:currentColor; border-radius:1px; }
+  .menu-btn:active { color:var(--ink); }
 
   main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
 
   .gauge-wrap { position:relative; width:min(78vw, 300px); aspect-ratio:1; }
-  svg { width:100%; height:100%; transform:rotate(135deg); }
+  .gauge-wrap svg { width:100%; height:100%; transform:rotate(135deg); }
   .arc-bg { stroke: var(--line); }
   .arc-val { stroke: var(--accent); transition: stroke-dashoffset 0.9s cubic-bezier(.3,.8,.3,1), stroke 0.8s ease; }
   .readout {
@@ -108,18 +116,27 @@
   .stamp { font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); }
   .attribution { font-size:10px; opacity:0.7; }
 
-  .iconpick { display:flex; align-items:center; gap:10px; }
-  .iconpick .k {
-    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+  .menu {
+    position:fixed; inset:0; z-index:10; background:var(--bg);
+    padding: calc(env(safe-area-inset-top, 0px) + 22px) 22px calc(env(safe-area-inset-bottom, 0px) + 22px);
+    display:flex; flex-direction:column; gap:34px;
+  }
+  .menu-head { display:flex; justify-content:space-between; align-items:center; }
+  .sect-k {
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.16em;
     text-transform:uppercase; color:var(--muted);
   }
+  .iconpick { display:flex; align-items:center; gap:12px; margin-top:16px; }
   .iconpick .ic {
-    width:34px; height:34px; padding:0; border:1px solid transparent;
-    border-radius:9px; background:none;
+    width:52px; height:52px; padding:0; border:1px solid transparent;
+    border-radius:13px; background:none;
   }
-  .iconpick .ic img { display:block; width:100%; height:100%; border-radius:8px; opacity:0.5; }
+  .iconpick .ic img { display:block; width:100%; height:100%; border-radius:12px; opacity:0.55; }
   .iconpick .ic.active { border-color:var(--accent); }
   .iconpick .ic.active img { opacity:1; }
+  .menu-note { margin-top:14px; font-size:12.5px; line-height:1.5; color:var(--muted); max-width:40ch; }
+  .about { margin-top:16px; font-size:13px; line-height:1.6; color:var(--muted); max-width:44ch; }
+  .about a { color:var(--ink); }
 
   .state { text-align:center; color:var(--muted); font-size:14px; line-height:1.6; padding:0 10px; }
   .hidden { display:none; }
@@ -133,7 +150,10 @@
     <div>
       <div class="eyebrow">Wet Bulb Temperature</div>
     </div>
-    <div class="loc" id="loc"></div>
+    <div class="hdr-right">
+      <div class="loc" id="loc"></div>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </header>
 
   <main id="main">
@@ -167,17 +187,35 @@
 
   <footer>
     <button id="refresh" type="button">Vernieuwen</button>
-    <div class="iconpick" id="iconPick">
-      <span class="k">Icoon</span>
-      <button class="ic" type="button" data-icon="a" aria-label="Icoon A: meter"><img src="icons/icon-a.png" alt=""></button>
-      <button class="ic" type="button" data-icon="b" aria-label="Icoon B: minimaal"><img src="icons/icon-b.png" alt=""></button>
-      <button class="ic" type="button" data-icon="c" aria-label="Icoon C: schaal"><img src="icons/icon-c.png" alt=""></button>
-      <button class="ic" type="button" data-icon="d" aria-label="Icoon D: gevuld"><img src="icons/icon-d.png" alt=""></button>
-    </div>
-    <div class="stamp hidden" id="iconHint">Zet de app opnieuw op je beginscherm om het gekozen icoon te zien.</div>
     <div class="stamp" id="stamp"></div>
-    <div class="stamp attribution">Grenzen indicatief · o.a. Sherwood &amp; Huber (2010), Vecellio et al. (2022)</div>
   </footer>
+
+  <div class="menu hidden" id="menu">
+    <div class="menu-head">
+      <div class="eyebrow">Menu</div>
+      <button class="menu-btn" id="menuClose" type="button" aria-label="Sluit menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div>
+      <div class="sect-k">App-icoon</div>
+      <div class="iconpick" id="iconPick">
+        <button class="ic" type="button" data-icon="a" aria-label="Icoon A: meter"><img src="icons/icon-a.png" alt=""></button>
+        <button class="ic" type="button" data-icon="b" aria-label="Icoon B: minimaal"><img src="icons/icon-b.png" alt=""></button>
+        <button class="ic" type="button" data-icon="c" aria-label="Icoon C: schaal"><img src="icons/icon-c.png" alt=""></button>
+        <button class="ic" type="button" data-icon="d" aria-label="Icoon D: gevuld"><img src="icons/icon-d.png" alt=""></button>
+      </div>
+      <div class="menu-note">iOS leest het icoon uit op het moment dat je de app op het beginscherm zet. Kies dus eerst, en zet de app daarna (opnieuw) op je beginscherm.</div>
+    </div>
+    <div>
+      <div class="sect-k">Over</div>
+      <div class="about">
+        Toont de actuele wet bulb temperatuur en het hitterisico op je locatie.
+        Weerdata van Open-Meteo; risicogrenzen indicatief, o.a. naar Sherwood &amp; Huber (2010) en Vecellio et al. (2022).
+        <a href="https://github.com/kramerica-inc-dev/wet-bulb-temperature" target="_blank" rel="noopener">Broncode en uitleg op GitHub</a>.
+      </div>
+    </div>
+  </div>
 
 <script>
 (function(){
@@ -352,8 +390,12 @@
     var v = btn.getAttribute('data-icon');
     try { localStorage.setItem(ICON_KEY, v); } catch(e){}
     applyIcon(v);
-    $('iconHint').classList.remove('hidden');
   });
+
+  function closeMenu(){ $('menu').classList.add('hidden'); }
+  $('menuBtn').addEventListener('click', function(){ $('menu').classList.remove('hidden'); });
+  $('menuClose').addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeMenu(); });
 
   $('refresh').addEventListener('click', load);
   showLast();
